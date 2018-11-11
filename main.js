@@ -1,14 +1,19 @@
-var rx, ry, rs;
+var rx, ry, rs, score, highscore, timer, scoreplus;
 var pickups = [];
 
 function setup() {
     createCanvas(64 * 5, 64 * 5)
 
     pickups.push({
-        x: 0,
-        y: 0,
+        x: random(width),
+        y: random(height),
         s: 64,
     })
+
+    score = 0;
+    highscore = 0
+    timer = 1 * 1000;
+    scoreplus = 1
 
     rx = 0;
     ry = 0;
@@ -16,24 +21,47 @@ function setup() {
 }
 
 function draw() {
+    background(0)
+
+    fill(255)
+    text(score, 10, 20);
+    text(timer, 10, 40);
 
     ellipseMode(CORNER)
-    
-    background(0)
+
     rect(rx, ry, rs, rs)
 
     boundary()
+    countdown()
 
     // PICKUP LENGTH ARE NOT FROM 0, SO THE LENGTH IS 1 BUT THE INDEX IS 0 SO LENGTH -1 IS INDEX
     ellipse(pickups[pickups.length - 1].x, pickups[pickups.length - 1].y, pickups[pickups.length - 1].s)
 
-    console.log(dist(rx, ry, pickups[pickups.length - 1].x, pickups[pickups.length - 1].y, ))
+    // LOG THE SCORE (DEBUG MODE)
+    // console.log(score)
 
     if (dist(rx, ry, pickups[pickups.length - 1].x, pickups[pickups.length - 1].y, ) <= pickups[pickups.length - 1].s) {
-        // score++
-        spawn(pickups.length-1)
+        score += scoreplus
+        spawn(pickups.length - 1)
     }
 
+}
+
+function countdown() {
+    if (timer / 100 <= 0) {
+        endGame()
+    }
+
+    if (timer / 100 > 0) {
+        timer -= 1
+    }
+}
+
+function endGame() {
+    timer = 'GAME OVER!'
+    highscore = score;
+    scoreplus = 0
+    score += scoreplus
 }
 
 function spawn(index) {
