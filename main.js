@@ -15,10 +15,22 @@ function draw() {
 }
 
 function keyPressed(event) {
-    switch(event.key){
+    switch (event.key) {
         case 'w':
-        ry -= 64;
-        break;
+            ry -= rs;
+            break;
+
+        case 'a':
+            rx -= rs
+            break;
+
+        case 's':
+            ry += rs
+            break;
+
+        case 'd':
+            rx += rs;
+            break;
 
     }
 }
