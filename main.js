@@ -12,6 +12,28 @@ function draw() {
     background(0)
     rect(rx, ry, rs, rs)
 
+    boundary()
+
+}
+
+function boundary(){
+
+    if(rx > width){
+        rx = 0
+    }
+
+    if(rx < 0){
+        rx = width
+    }
+
+    if(ry > height){
+        ry = 0;
+    }
+
+    if(ry < 0){
+        ry = height;
+    }
+    
 }
 
 function keyPressed(event) {
