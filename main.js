@@ -10,6 +10,8 @@ function setup() {
         s: 64,
     })
 
+    spawn(pickups[0])
+
     score = 0;
     highscore = 0
     timer = 1 * 1000;
@@ -31,7 +33,8 @@ function draw() {
     fill(fillc.r, fillc.g, fillc.b)
     text(score, 10, 20);
     text(timer, 10, 40);
-    
+
+    // ELLIPSEMODE IS CORNER
     ellipseMode(CORNER)
 
     rect(rx, ry, rs, rs)
@@ -77,9 +80,16 @@ function endGame() {
 }
 
 function spawn(index) {
+
+    var randomNumbers = [0, 64, 128, 192, 256, 320]
+    var selectnum = Math.floor(random(randomNumbers.length - 1))
+
+    console.log(selectnum)
+    console.log(randomNumbers[selectnum])
+    
     pickups[index] = {
-        x: random(width),
-        y: random(height),
+        x: randomNumbers[selectnum],
+        y: randomNumbers[selectnum],
         s: 64,
     }
 }
@@ -108,7 +118,7 @@ function keyPressed(event) {
 
     // CONSOLE LOG EVENT (DEBUG MODE)
     // console.log(event)
-    
+
     switch (event.code.toLowerCase()) {
         case 'keyw':
             ry -= rs;
