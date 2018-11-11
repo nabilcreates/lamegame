@@ -1,4 +1,4 @@
-var rx, ry, rs, score, highscore, timer, scoreplus;
+var rx, ry, rs, score, highscore, timer, scoreplus, fillc;
 var pickups = [];
 
 function setup() {
@@ -14,6 +14,11 @@ function setup() {
     highscore = 0
     timer = 1 * 1000;
     scoreplus = 1
+    fillc = {
+        r: 255,
+        g: 255,
+        b: 255
+    }
 
     rx = 0;
     ry = 0;
@@ -23,10 +28,10 @@ function setup() {
 function draw() {
     background(0)
 
-    fill(255)
+    fill(fillc.r, fillc.g, fillc.b)
     text(score, 10, 20);
     text(timer, 10, 40);
-
+    
     ellipseMode(CORNER)
 
     rect(rx, ry, rs, rs)
@@ -62,6 +67,13 @@ function endGame() {
     highscore = score;
     scoreplus = 0
     score += scoreplus
+
+    // FILL WHOLE CANVAS TO BLACK
+    fillc = {
+        r: 255,
+        g: 0,
+        b: 0
+    }
 }
 
 function spawn(index) {
@@ -93,20 +105,24 @@ function boundary() {
 }
 
 function keyPressed(event) {
-    switch (event.key) {
-        case 'w':
+
+    // CONSOLE LOG EVENT (DEBUG MODE)
+    // console.log(event)
+    
+    switch (event.code.toLowerCase()) {
+        case 'keyw':
             ry -= rs;
             break;
 
-        case 'a':
+        case 'keya':
             rx -= rs
             break;
 
-        case 's':
+        case 'keys':
             ry += rs
             break;
 
-        case 'd':
+        case 'keyd':
             rx += rs;
             break;
 
